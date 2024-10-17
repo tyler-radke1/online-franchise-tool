@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Franchise App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
+      ), 
       home: HomeScreen(),
     );
   }
@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     MainScreen(),
     const SettingsScreen(),
-    const FilePickerScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -74,11 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('Settings'),
               onTap: () => _onItemTapped(1),
             ),
-            ListTile(
-              leading: const Icon(Icons.file_copy),
-              title: const Text('Choose directory'),
-              onTap: () => _onItemTapped(2),
-            )
           ],
         ),
       ),

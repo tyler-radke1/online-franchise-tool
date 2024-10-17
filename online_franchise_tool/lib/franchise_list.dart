@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'file_picker.dart';
 
 
 class Franchise {
@@ -10,29 +11,40 @@ class Franchise {
 }
 
 class FranchiseListItem extends StatefulWidget {
-  const FranchiseListItem(Franchise franchise, {super.key});
+  final Franchise franchise; 
+
+  const FranchiseListItem({required this.franchise, Key? key}) : super(key: key);
 
   @override
-  _FranchiseListItem createState() => _FranchiseListItem();
+  _FranchiseListItemState createState() => _FranchiseListItemState();
+    
+    
 }
 
-class _FranchiseListItem extends State<FranchiseListItem> {
-  final Franchise franchise;
+class _FranchiseListItemState extends State<FranchiseListItem> {
 
-  _FranchiseListItem({required this.franchise});
-
+  void handleDirectory (String? directory,) {
+    setState(() {
+      Franchise.franchiseDirectories[widget.franchise.id] = directory;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(franchise.name), // Franchise name as the title
-      trailing: ElevatedButton(
-        onPressed: () {
-          // Handle directory button press
-          print('Directory button pressed for ${franchise.name}');
-        },
-        child: const Text('Directory'),
+      title: Text(widget.franchise.name), // Access the franchise via widget
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,  // Ensure the row takes only as much space as needed
+        children: [
+          Text(Franchise.franchiseDirectories[widget.franchise.id] ?? "No directory selected"), // Display file path or placeholder
+          SizedBox(width: 8),  // Add some spacing between the text and button
+          FilePickerButton(
+            onDirectorySelected: (String? directory) {
+              handleDirectory(directory);
+            },
+          ),
+        ],
       ),
     );
   }
 }
-

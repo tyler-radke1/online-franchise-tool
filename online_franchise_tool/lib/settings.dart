@@ -1,13 +1,5 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'franchise_list.dart';
-
- class Franchise {
-  final String id;
-  final String name;
-
-  Franchise({required this.id, required this.name});
-}
+import 'package:online_franchise_tool/franchise_list.dart';
 // Settings Screen with Login/Logout and Franchise list
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -41,9 +33,9 @@ class SettingsScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(8),
-             children: <Widget>[
-                
-              ],
+              children: testFranchises
+                  .map((franchise) => FranchiseListItem(franchise: franchise))
+                  .toList(),
             ),
           ),
         ],
