@@ -1,87 +1,38 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+
 class Franchise {
-  final String id;
   final String name;
+  final String id;
 
-  Franchise({required this.id, required this.name});
+  Franchise({required this.name, required this.id});
+  static Map<String, String?> franchiseDirectories = {};
 }
 
-class FranchiseList extends StatefulWidget {
-  final List<Franchise> franchises;
-
-  const FranchiseList({Key? key, required this.franchises}) : super(key: key);
+class FranchiseListItem extends StatefulWidget {
+  const FranchiseListItem(Franchise franchise, {super.key});
 
   @override
-  _FranchiseListState createState() => _FranchiseListState();
+  _FranchiseListItem createState() => _FranchiseListItem();
 }
 
-class _FranchiseListState extends State<FranchiseList> {
-  // Map to store franchise IDs and their corresponding directories
-  Map<String, String> franchiseDirectories = {};
+class _FranchiseListItem extends State<FranchiseListItem> {
+  final Franchise franchise;
 
-  Future<void> _saveFranchiseDirectory(String franchiseId) async {
-    // Open the file picker to select a directory
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-
-    if (selectedDirectory != null) {
-      // Update the franchise directory in the map
-      setState(() {
-        franchiseDirectories[franchiseId] = selectedDirectory;
-      });
-    }
-  }
+  _FranchiseListItem({required this.franchise});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.franchises.length,
-      itemBuilder: (context, index) {
-        final franchise = widget.franchises[index];
-        final directory = franchiseDirectories[franchise.id] ?? 'Directory not set';
-
-        return ListTile(
-          title: Text(franchise.name),
-          subtitle: Text('Directory: $directory'),
-          trailing: ElevatedButton(
-            onPressed: () async {
-              await _saveFranchiseDirectory(franchise.id);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('${franchise.name} selected, directory updated'),
-                ),
-              );
-            },
-            child: const Text('Set Directory'),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class FranchiseListScreen extends StatelessWidget {
-  // Sample data
-  final List<Franchise> franchises = [
-    Franchise(id: '1', name: 'Franchise A'),
-    Franchise(id: '2', name: 'Franchise B'),
-    Franchise(id: '3', name: 'Franchise C'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Franchise List'),
+    return ListTile(
+      title: Text(franchise.name), // Franchise name as the title
+      trailing: ElevatedButton(
+        onPressed: () {
+          // Handle directory button press
+          print('Directory button pressed for ${franchise.name}');
+        },
+        child: const Text('Directory'),
       ),
-      body: FranchiseList(franchises: franchises),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: FranchiseListScreen(),
-  ));
-}

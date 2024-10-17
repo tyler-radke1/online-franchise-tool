@@ -1,13 +1,20 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'franchise_list.dart';
 
+ class Franchise {
+  final String id;
+  final String name;
+
+  Franchise({required this.id, required this.name});
+}
 // Settings Screen with Login/Logout and Franchise list
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-      List<Franchise> test_Franchises = [
+      List<Franchise> testFranchises = [
     Franchise(id: '1', name: 'Franchise A'),
     Franchise(id: '2', name: 'Franchise B'),
     Franchise(id: '3', name: 'Franchise C'),
@@ -34,8 +41,8 @@ class SettingsScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(8),
-              children: <Widget>[
-                FranchiseList(franchises: [])
+             children: <Widget>[
+                
               ],
             ),
           ),
@@ -44,3 +51,4 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+

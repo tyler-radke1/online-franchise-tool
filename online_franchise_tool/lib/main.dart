@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [
     MainScreen(),
-    SettingsScreen(),
-    FilePickerScreen(),
+    const SettingsScreen(),
+    const FilePickerScreen(),
   ];
 
   void _onItemTapped(int index) {
